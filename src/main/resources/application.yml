@@ -2,12 +2,8 @@ micronaut:
   application:
     name: demo
 
-redis:
-  uri: redis://localhost
   caches:
-    blocking-example-cache:
+    example-blocking-cache:
       expire-after-write: 10m
-      value-serializer: io.micronaut.jackson.serialize.JacksonObjectSerializer
-    reactive-example-cache:
+    example-reactive-cache:
       expire-after-write: 10m
-      value-serializer: io.micronaut.jackson.serialize.JacksonObjectSerializer

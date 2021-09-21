@@ -1,37 +1,26 @@
 package com.example;
 
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @MicronautTest
 class BlockingExampleControllerTest {
 
-    @Inject BlockingClient client;
+    @Inject
+    BlockingExampleService service;
 
 
     @Test
     void testCacheInvalidation() throws InterruptedException {
-        var time = client.getTime("key");
+        var time = service.getByKey("key");
         Thread.sleep(100);
-        assertEquals(time, client.getTime("key"));
+        assertEquals(time, service.getByKey("key"));
 
-        client.reset("key");
-        assertNotEquals(time, client.getTime("key"));
+        service.resetCache("key");
+        assertNotEquals(time, service.getByKey("key"));
     }
-
-    @Client("http://localhost:8080")
-    interface BlockingClient {
-        @Get("/blocking/{key}")
-        LocalDateTime getTime(String key);
-        @Get("/blocking/{key}/reset")
-        void reset(String key);
-    }
-
 }

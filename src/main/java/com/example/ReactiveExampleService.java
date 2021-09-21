@@ -10,7 +10,7 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 
 @Singleton
-@CacheConfig("reactive-example-cache")
+@CacheConfig("example-reactive-cache")
 public class ReactiveExampleService {
 
     @Cacheable

@@ -9,7 +9,7 @@ import jakarta.inject.Singleton;
 import java.time.LocalDateTime;
 
 @Singleton
-@CacheConfig("blocking-example-cache")
+@CacheConfig("example-blocking-cache")
 public class BlockingExampleService {
 
     @Cacheable

@@ -1,6 +1,5 @@
 package com.example;
 
-import com.example.BlockingExampleControllerTest.BlockingClient;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
@@ -15,23 +14,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReactiveExampleControllerTest {
 
     @Inject
-    ReactiveClient client;
+    ReactiveExampleService service;
 
     @Test
     void testCacheInvalidation() throws InterruptedException {
-        var time = client.getTime("key");
+        var time = service.getByKey("key").block();
         Thread.sleep(100);
-        assertEquals(time, client.getTime("key"));
+        assertEquals(time, service.getByKey("key").block());
 
-        client.reset("key");
-        assertNotEquals(time, client.getTime("key"));
+        service.resetCache("key").block();
+        assertNotEquals(time, service.getByKey("key").block());
     }
 
-    @Client("http://localhost:8080")
-    interface ReactiveClient {
-        @Get("/reactive/{key}")
-        LocalDateTime getTime(String key);
-        @Get("/reactive/{key}/reset")
-        void reset(String key);
-    }
 }
