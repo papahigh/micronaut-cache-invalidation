@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 @MicronautTest
-class ReactiveExampleControllerTest {
+class ReactiveServiceTest {
 
     @Inject
     ReactiveExampleService service;

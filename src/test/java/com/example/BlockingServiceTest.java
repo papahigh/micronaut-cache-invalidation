@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @MicronautTest
-class BlockingExampleControllerTest {
+class BlockingServiceTest {
 
     @Inject
     BlockingExampleService service;
